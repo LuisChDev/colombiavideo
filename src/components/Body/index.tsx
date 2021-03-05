@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import {StyledBody} from './styles';
 import MovieSlider from 'components/MovieSlider';
 
-export default () => {
+export default ({back}: {back: string}) => {
   const [init, setInit] = useState(false);
   const [movies, setMovies] = useState([
     {title: "godzill", description: "la película", idn: 0, duration: 10,
-     rating: "Todos", url: "http://localhost:8081/assets/posters/Godzilla.jog"}
+     rating: "Todos", url: back + "/assets/posters/Godzilla.jpg"}
   ]);
 
   useEffect(() => {
     if (!init) {
-      fetch('http://localhost:8081/movies/all')
+      fetch(back + '/movies/all')
         .then(res => res.json().then(jsn => setMovies(jsn)));
       setInit(!init);
     }
@@ -20,11 +20,14 @@ export default () => {
   return (
     <StyledBody>
         {groupList(3, movies).map((movie, i) => {
+          console.log(movie[0].url);
           return (
             <MovieSlider height={i*300 + 100} movies={[
-              ["http://localhost:8081/assets/" + movie[0].url, movie[0].description],
-              ["http://localhost:8081/assets/" + movie[1].url, movie[1].description],
-              ["http://localhost:8081/assets/" + movie[2].url, movie[2].description]
+              ["dummy url", "dummy description"],
+              ["dummy url", "dummy description"],
+              [back.concat("/assets/") + (movie[0].url).substring(8), movie[0].description],
+              [back.concat("/assets/") + (movie[1].url).substring(8), movie[1].description],
+              [back.concat("/assets/") + (movie[2].url).substring(8), movie[2].description]
             ]} />
           );
         })}

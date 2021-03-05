@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const StyledBody = styled.div`
+    color: ${props => props.theme.colors.primary};
     background-color: ${props => props.theme.colors.background};
     position: absolute;
     height: 700px;
@@ -10,6 +11,6 @@ const StyledBody = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-`
+`;
 
-export {StyledBody}
+export {StyledBody};
